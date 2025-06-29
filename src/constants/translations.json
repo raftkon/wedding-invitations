@@ -1,0 +1,48 @@
+{
+  "ClassicEleganceTemplate": {
+    "en": {
+      "backToTemplates": "← Back to Templates",
+      "ourLoveStory": "Our Love Story",
+      "storyText": "We met on a rainy Tuesday in a small coffee shop in Florence. Michael was reading Dante, and Emma was sketching the view from the window. A spilled cappuccino brought us together, and we've been inseparable ever since.",
+      "firstMeeting": "First Meeting",
+      "engagement": "Engagement",
+      "ceremony": "Ceremony",
+      "reception": "Reception",
+      "time": "Time",
+      "location": "Location",
+      "address": "Address",
+      "dinner": "Dinner",
+      "dancing": "Dancing",
+      "theVenue": "The Venue",
+      "venueDescription": "Nestled in the heart of Tuscany's wine country, Villa Bellacorte is a 16th-century estate surrounded by rolling hills and vineyards. The villa offers breathtaking views of the Chianti landscape and provides the perfect romantic setting for our special day.",
+      "gettingThere": "Getting There",
+      "parking": "Parking",
+      "accommodation": "Accommodation",
+      "pleaseJoinUs": "Please Join Us",
+      "joinUsText": "Your presence would make our day complete. Please let us know if you'll be able to celebrate with us.",
+      "respondBy": "Kindly respond by August 15, 2024",
+      "rsvpNow": "RSVP Now",
+      "templatePreview": "This is a preview of the Classic Elegance template",
+      "createYourOwn": "Create Your Own Wedding Website",
+      "togetherWith": "Together with our families, we invite you to celebrate our wedding"
+    },
+    "gr": {
+      "backToTemplates": "Επιστροφή στα Πρότυπα",
+      "engagement": "Αρραβώνας",
+      "ceremony": "Τελετή",
+      "reception": "Δεξίωση",
+      "time": "Ώρα",
+      "location": "Τοποθεσία",
+      "address": "Διεύθυνση",
+      "dinner": "Δείπνο",
+      "dancing": "Χορός",
+      "theVenue": "Ο Χώρος",
+      "gettingThere": "Πώς να φτάσετε",
+      "parking": "Πάρκινγκ",
+      "accommodation": "Διαμονή",
+      "templatePreview": "Αυτή είναι μια προεπισκόπηση του προτύπου Κλασική Κομψότητα",
+      "createYourOwn": "Δημιουργήστε τη Δική σας Ιστοσελίδα Γάμου",
+      "togetherWith": "Μαζί με τις οικογένειές μας, σας προσκαλούμε να γιορτάσετε τον γάμο μας"
+    }
+  }
+}

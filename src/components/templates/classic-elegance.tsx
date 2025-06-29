@@ -17,105 +17,43 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { formatTimestampToGreek, formatTimeToGreek } from "@/lib/utils";
+import translations from "@/constants/translations.json";
 
-const translations = {
-  en: {
-    backToTemplates: "← Back to Templates",
-    ourLoveStory: "Our Love Story",
-    storyText:
-      "We met on a rainy Tuesday in a small coffee shop in Florence. Michael was reading Dante, and Emma was sketching the view from the window. A spilled cappuccino brought us together, and we've been inseparable ever since.",
-    firstMeeting: "First Meeting",
-    engagement: "Engagement",
-    ceremony: "Ceremony",
-    reception: "Reception",
-    time: "Time",
-    location: "Location",
-    address: "Address",
-    dinner: "Dinner",
-    dancing: "Dancing",
-    theVenue: "The Venue",
-    venueDescription:
-      "Nestled in the heart of Tuscany's wine country, Villa Bellacorte is a 16th-century estate surrounded by rolling hills and vineyards. The villa offers breathtaking views of the Chianti landscape and provides the perfect romantic setting for our special day.",
-    gettingThere: "Getting There",
-    parking: "Parking",
-    accommodation: "Accommodation",
-    pleaseJoinUs: "Please Join Us",
-    joinUsText:
-      "Your presence would make our day complete. Please let us know if you'll be able to celebrate with us.",
-    respondBy: "Kindly respond by August 15, 2024",
-    rsvpNow: "RSVP Now",
-    templatePreview: "This is a preview of the Classic Elegance template",
-    createYourOwn: "Create Your Own Wedding Website",
-    togetherWith:
-      "Together with our families, we invite you to celebrate our wedding",
-  },
-  gr: {
-    backToTemplates: "Επιστροφή στα Πρότυπα",
-    // ourLoveStory: "Η Ιστορία της Αγάπης μας",
-    // storyText:
-    //   "Γνωριστήκαμε μια βροχερή Τρίτη σε ένα μικρό καφενείο στη Φλωρεντία. Ο Μιχάλης διάβαζε Δάντη, και η Έμμα σκιτσάριζε τη θέα από το παράθυρο. Ένας χυμένος καπουτσίνο μας ένωσε, και από τότε είμαστε αχώριστοι.",
-    // firstMeeting: "Πρώτη Συνάντηση",
-    engagement: "Αρραβώνας",
-    ceremony: "Τελετή",
-    reception: "Δεξίωση",
-    time: "Ώρα",
-    location: "Τοποθεσία",
-    address: "Διεύθυνση",
-    dinner: "Δείπνο",
-    dancing: "Χορός",
-    theVenue: "Ο Χώρος",
-    // venueDescription:
-    //   "Φωλιασμένη στην καρδιά της αμπελουργικής περιοχής της Τοσκάνης, η Villa Bellacorte είναι ένα κτήμα του 16ου αιώνα περιτριγυρισμένο από κυματιστούς λόφους και αμπελώνες. Η βίλα προσφέρει εκπληκτική θέα στο τοπίο του Chianti και παρέχει το τέλειο ρομαντικό σκηνικό για την ξεχωριστή μας μέρα.",
-    gettingThere: "Πώς να φτάσετε",
-    parking: "Πάρκινγκ",
-    accommodation: "Διαμονή",
-    // pleaseJoinUs: "Παρακαλούμε Ελάτε μαζί μας",
-    // joinUsText:
-    //   "Η παρουσία σας θα έκανε τη μέρα μας ολοκληρωμένη. Παρακαλούμε ενημερώστε μας αν θα μπορέσετε να γιορτάσετε μαζί μας.",
-    // respondBy: "Παρακαλούμε απαντήστε έως τις 15 Αυγούστου 2024",
-    // rsvpNow: "Επιβεβαίωση Παρουσίας",
-    templatePreview:
-      "Αυτή είναι μια προεπισκόπηση του προτύπου Κλασική Κομψότητα",
-    createYourOwn: "Δημιουργήστε τη Δική σας Ιστοσελίδα Γάμου",
-    togetherWith:
-      "Μαζί με τις οικογένειές μας, σας προσκαλούμε να γιορτάσετε τον γάμο μας",
-  },
-};
-
-const data = {
-  firstPartner: "Μιχάλης Βασιλείου",
-  secondPartner: "Έμμα Σερέτη",
-  email: "my@email.com",
-  address: "Villa Bellacorte, Τοσκάνη, Ιταλία",
-  phone: "00306987654321",
-  date: "2024-09-22T16:00",
-  invites: "150",
+interface ClassicEleganceTemplateProps {
+  firstPartner: string;
+  secondPartner: string;
+  email: string;
+  phone: string;
+  date: string;
+  invites: string;
   ceremony: {
-    name: "Κήποι Villa Bellacorte",
-    address: "Via del Chianti, 50022 Greve in Chianti FI, Ιταλία",
-    coordinates: "(12.34, 43.21)",
-    date: "2024-09-22T16:00",
-  },
+    name: string;
+    date: string;
+  };
   reception: {
-    name: "Βεράντα Villa Bellacorte",
-    address: "Via del Chianti, 50022 Greve in Chianti FI, Ιταλία",
-    coordinates: "(12.34, 43.21)",
-    date: "2024-09-22T18:00",
-    dinner: "2024-09-22T19:30",
-  },
+    name: string;
+    date: string;
+    dinner: string;
+  };
   location: {
-    name: "Villa Bellacorte",
-    description:
-      "Φωλιασμένη στην καρδιά της αμπελουργικής περιοχής της Τοσκάνης, η Villa Bellacorte είναι ένα κτήμα του 16ου αιώνα περιτριγυρισμένο από κυματιστούς λόφους και αμπελώνες. Η βίλα προσφέρει εκπληκτική θέα στο τοπίο του Chianti και παρέχει το τέλειο ρομαντικό σκηνικό για την ξεχωριστή μας μέρα.",
-    parking: "Διαθέσιμο στο χώρο",
-  },
-  photoUrl: "",
-};
-
-export function ClassicEleganceTemplate() {
-  const [language, setLanguage] = useState<"en" | "gr">("en");
+    name: string;
+    country: string;
+    city: string;
+    description: string;
+    address: string;
+    coordinates: string;
+    parking: string;
+    photoUrl: string;
+  };
+}
+export function ClassicEleganceTemplate({
+  data,
+}: {
+  data: ClassicEleganceTemplateProps;
+}) {
+  const [language, setLanguage] = useState<"en" | "gr">("gr");
   const searchParams = useSearchParams();
-  const t = translations[language];
+  const t = translations["ClassicEleganceTemplate"][language];
 
   useEffect(() => {
     const langParam = searchParams.get("lang");
@@ -168,7 +106,6 @@ export function ClassicEleganceTemplate() {
             <Heart className="h-12 w-12 text-rose-600" />
           </div>
           <h1 className="text-5xl font-serif text-gray-800 mb-4">
-            {/* {language === "en" ? "Emma & Michael" : "Έμμα & Μιχάλης"} */}
             {`${data.firstPartner} & ${data.secondPartner}`}
           </h1>
           <div className="w-32 h-px bg-rose-300 mx-auto mb-6"></div>
@@ -177,69 +114,15 @@ export function ClassicEleganceTemplate() {
             <div className="flex items-center justify-center gap-2">
               <Calendar className="h-5 w-5 text-rose-500" />
               <span className="text-lg">
-                {/* {language === "en"
-                  ? "September 22, 2024"
-                  : "22 Σεπτεμβρίου, 2024"} */}
                 {formatTimestampToGreek(data.date)}
               </span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <MapPin className="h-5 w-5 text-rose-500" />
-              <span className="text-lg">
-                {/* {language === "en"
-                  ? "Villa Bellacorte, Tuscany, Italy"
-                  : "Villa Bellacorte, Τοσκάνη, Ιταλία"} */}
-                {data.address}
-              </span>
+              <span className="text-lg">{`${data.location.name}, ${data.location.city}, ${data.location.country}`}</span>
             </div>
           </div>
         </div>
-
-        {/* Our Story */}
-        {/* <Card className="mb-8 border-rose-100">
-          <CardContent className="p-8">
-            <h2 className="text-3xl font-serif text-center text-gray-800 mb-6">
-              {t.ourLoveStory}
-            </h2>
-            <div className="prose prose-rose max-w-none text-gray-600 leading-relaxed">
-              <p className="text-center mb-6">&quot;{t.storyText}&quot;</p>
-              <div className="grid md:grid-cols-2 gap-8 mt-8">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Heart className="h-8 w-8 text-rose-500" />
-                  </div>
-                  <h3 className="font-semibold text-gray-800 mb-2">
-                    {t.firstMeeting}
-                  </h3>
-                  <p className="text-sm">
-                    {language === "en"
-                      ? "Café Rivoire, Florence"
-                      : "Καφέ Rivoire, Φλωρεντία"}
-                    <br />
-                    {language === "en" ? "March 15, 2019" : "15 Μαρτίου, 2019"}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Gift className="h-8 w-8 text-rose-500" />
-                  </div>
-                  <h3 className="font-semibold text-gray-800 mb-2">
-                    {t.engagement}
-                  </h3>
-                  <p className="text-sm">
-                    {language === "en"
-                      ? "Ponte Vecchio, Florence"
-                      : "Ponte Vecchio, Φλωρεντία"}
-                    <br />
-                    {language === "en"
-                      ? "December 24, 2023"
-                      : "24 Δεκεμβρίου, 2023"}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card> */}
 
         {/* Wedding Details */}
         <div className="grid md:grid-cols-2 gap-8 mb-8">
@@ -253,21 +136,11 @@ export function ClassicEleganceTemplate() {
                 <div className="space-y-2 text-gray-600">
                   <p>
                     <strong>{t.time}:</strong>{" "}
-                    {/* {language === "en" ? "4:00 PM" : "16:00"} */}
                     {formatTimeToGreek(data.ceremony.date)}
-                    {/* {data.ceremony.date.split("T")[1]} */}
                   </p>
                   <p>
-                    <strong>{t.location}:</strong>{" "}
-                    {/* {language === "en"
-                      ? "Villa Bellacorte Gardens"
-                      : "Κήποι Villa Bellacorte"} */}
-                    {data.ceremony.name}
+                    <strong>{t.location}:</strong> {data.ceremony.name}
                   </p>
-                  {/* <p>
-                    <strong>{t.address}:</strong>{" "}
-                    {data.ceremony.address}
-                  </p> */}
                 </div>
               </div>
             </CardContent>
@@ -283,27 +156,15 @@ export function ClassicEleganceTemplate() {
                 <div className="space-y-2 text-gray-600">
                   <p>
                     <strong>{t.time}:</strong>{" "}
-                    {/* {language === "en" ? "6:00 PM" : "18:00"} */}
                     {formatTimeToGreek(data.reception.date)}
                   </p>
                   <p>
-                    <strong>{t.location}:</strong>{" "}
-                    {/* {language === "en"
-                      ? "Villa Bellacorte Terrace"
-                      : "Βεράντα Villa Bellacorte"} */}
-                    {data.reception.name}
+                    <strong>{t.location}:</strong> {data.reception.name}
                   </p>
                   <p>
                     <strong>{t.dinner}:</strong>{" "}
-                    {/* {language === "en" ? "7:30 PM" : "19:30"} */}
                     {formatTimeToGreek(data.reception.dinner)}
                   </p>
-                  {/* <p>
-                    <strong>{t.dancing}:</strong>{" "}
-                    {language === "en"
-                      ? "9:00 PM onwards"
-                      : "από 21:00 και μετά"}
-                  </p> */}
                 </div>
               </div>
             </CardContent>
@@ -319,40 +180,18 @@ export function ClassicEleganceTemplate() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  {/* Villa Bellacorte */}
                   {data.location.name}
                 </h3>
                 <p className="text-gray-600 mb-4 leading-relaxed">
-                  {/* {t.venueDescription} */}
                   {data.location.description}
                 </p>
                 <div className="space-y-2 text-sm text-gray-600">
-                  {/* <p>
-                    <strong>{t.gettingThere}:</strong>{" "}
-                    {language === "en"
-                      ? "45 minutes from Florence"
-                      : "45 λεπτά από τη Φλωρεντία"}
-                  </p> */}
                   <p>
-                    <strong>{t.address}:</strong>{" "}
-                    {/* {language === "en"
-                      ? "Available on-site"
-                      : "Διαθέσιμο στο χώρο"} */}
-                    {data.address}
+                    <strong>{t.address}:</strong> {data.location.address}
                   </p>
                   <p>
-                    <strong>{t.parking}:</strong>{" "}
-                    {/* {language === "en"
-                      ? "Available on-site"
-                      : "Διαθέσιμο στο χώρο"} */}
-                    {data.location.parking}
+                    <strong>{t.parking}:</strong> {data.location.parking}
                   </p>
-                  {/* <p>
-                    <strong>{t.accommodation}:</strong>{" "}
-                    {language === "en"
-                      ? "Nearby hotels listed below"
-                      : "Κοντινά ξενοδοχεία παρακάτω"}
-                  </p> */}
                 </div>
               </div>
               <div className="aspect-video bg-gradient-to-br from-rose-100 to-amber-100 rounded-lg flex items-center justify-center">
@@ -364,27 +203,6 @@ export function ClassicEleganceTemplate() {
             </div>
           </CardContent>
         </Card>
-
-        {/* RSVP */}
-        {/* <Card className="mb-8 border-rose-100 bg-gradient-to-r from-rose-50 to-amber-50">
-          <CardContent className="p-8 text-center">
-            <h2 className="text-3xl font-serif text-gray-800 mb-4">
-              {t.pleaseJoinUs}
-            </h2>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              {t.joinUsText}
-            </p>
-            <div className="space-y-4">
-              <p className="text-sm text-gray-600">{t.respondBy}</p>
-              <Button
-                size="lg"
-                className="bg-rose-500 hover:bg-rose-600 text-white px-8"
-              >
-                {t.rsvpNow}
-              </Button>
-            </div>
-          </CardContent>
-        </Card> */}
 
         {/* Template Info */}
         <div className="text-center py-8 border-t border-rose-200">
