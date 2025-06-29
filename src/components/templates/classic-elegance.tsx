@@ -8,7 +8,6 @@ import {
   MapPin,
   Calendar,
   Clock,
-  Gift,
   Camera,
   Music,
   Globe,
