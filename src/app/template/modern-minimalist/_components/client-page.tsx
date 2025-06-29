@@ -119,7 +119,7 @@ export function ModernMinimalistTemplate() {
           </h1>
           <div className="w-24 h-px bg-amber-400 mx-auto mb-8"></div>
           <p className="text-xl text-gray-600 mb-12 font-light">
-            We're getting married and we'd love for you to join us
+            We&apos;re getting married and we&apos;d love for you to join us
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-2xl mx-auto">

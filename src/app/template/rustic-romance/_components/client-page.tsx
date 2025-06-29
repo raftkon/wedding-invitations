@@ -149,7 +149,7 @@ export function RusticRomanceTemplate() {
           </h1>
           <div className="text-orange-600 text-2xl mb-6">♦ ♦ ♦</div>
           <p className="text-xl text-gray-700 mb-8 font-serif italic">
-            "{t.twoHearts}"
+            &quot;{t.twoHearts}&quot;
           </p>
           <div className="space-y-3 text-gray-700">
             <div className="flex items-center justify-center gap-2">
@@ -222,7 +222,7 @@ export function RusticRomanceTemplate() {
             </div>
             <div className="mt-8 text-center">
               <p className="text-gray-600 italic font-serif leading-relaxed max-w-2xl mx-auto">
-                "{t.journeyText}"
+                &quot;{t.journeyText}&quot;
               </p>
             </div>
           </CardContent>
@@ -377,7 +377,7 @@ export function RusticRomanceTemplate() {
               {t.joinOurAdventure}
             </h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto font-serif italic">
-              "{t.adventureText}"
+              &quot;{t.adventureText}&quot;
             </p>
             <div className="space-y-4">
               <p className="text-sm text-gray-600">{t.respondBy}</p>

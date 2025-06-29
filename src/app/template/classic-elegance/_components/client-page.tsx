@@ -164,7 +164,7 @@ export function ClassicEleganceTemplate() {
               {t.ourLoveStory}
             </h2>
             <div className="prose prose-rose max-w-none text-gray-600 leading-relaxed">
-              <p className="text-center mb-6">"{t.storyText}"</p>
+              <p className="text-center mb-6">&quot;{t.storyText}&quot;</p>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
