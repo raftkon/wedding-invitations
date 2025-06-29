@@ -25,6 +25,7 @@ import {
   Palette,
   Camera,
   Menu,
+  MoveLeft,
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -32,7 +33,7 @@ import { motion } from "framer-motion";
 const translations = {
   en: {
     // Header
-    backToHome: "← Back to Home",
+    backToHome: "Back to Home",
 
     // Page Title
     pageTitle: "Create Your Wedding Template",
@@ -133,7 +134,7 @@ const translations = {
   },
   gr: {
     // Header
-    backToHome: "← Επιστροφή στην Αρχική",
+    backToHome: "Επιστροφή στην Αρχική",
 
     // Page Title
     pageTitle: "Δημιουργήστε το Πρότυπο Γάμου σας",
@@ -258,7 +259,7 @@ const scaleOnHover = {
 };
 
 export function CreateTemplatePage() {
-  const [language, setLanguage] = useState<"en" | "gr">("en");
+  const [language, setLanguage] = useState<"en" | "gr">("gr");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -358,7 +359,10 @@ export function CreateTemplatePage() {
                   asChild
                   className="bg-rose-500 hover:bg-rose-600 text-white"
                 >
-                  <Link href="/">{t.backToHome}</Link>
+                  <Link href="/">
+                    <MoveLeft />
+                    {t.backToHome}
+                  </Link>
                 </Button>
               </motion.div>
             </CardContent>
@@ -409,7 +413,10 @@ export function CreateTemplatePage() {
               asChild
               className="border-rose-200 text-rose-600 hover:bg-rose-50 bg-transparent"
             >
-              <Link href="/">{t.backToHome}</Link>
+              <Link href="/">
+                <MoveLeft />
+                {t.backToHome}
+              </Link>
             </Button>
           </motion.div>
         </div>
@@ -454,7 +461,10 @@ export function CreateTemplatePage() {
                     className="w-full justify-start border-rose-200 text-rose-600 hover:bg-rose-50 bg-transparent"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Link href="/">{t.backToHome}</Link>
+                    <Link href="/">
+                      <MoveLeft />
+                      {t.backToHome}
+                    </Link>
                   </Button>
                 </motion.div>
               </motion.nav>

@@ -1,5 +1,5 @@
+import { RusticRomanceTemplate } from "@/components/templates/rustic-romance";
 import React, { Suspense } from "react";
-import { RusticRomanceTemplate } from "./_components/client-page";
 
 export default function Page() {
   return (

@@ -383,7 +383,7 @@ export default function LandingPage() {
                       className="bg-rose-500 hover:bg-rose-600 text-white px-8 w-full sm:w-auto"
                       asChild
                     >
-                      <Link href="/create-template">{t.startCreating}</Link>
+                      <Link href="/templates/new">{t.startCreating}</Link>
                     </Button>
                   </motion.div>
                   <motion.div variants={scaleOnHover}>
@@ -480,7 +480,7 @@ export default function LandingPage() {
             >
               {/* Template 1 - Classic Elegance */}
               <motion.div variants={fadeInUp}>
-                <Link href={`/template/classic-elegance?lang=${language}`}>
+                <Link href={`/templates/classic-elegance?lang=${language}`}>
                   <motion.div variants={scaleOnHover}>
                     <Card className="group cursor-pointer transition-all duration-300 hover:shadow-xl border-rose-100 overflow-hidden">
                       <CardContent className="p-0">
@@ -535,7 +535,7 @@ export default function LandingPage() {
 
               {/* Template 2 - Modern Minimalist */}
               <motion.div variants={fadeInUp}>
-                <Link href={`/template/modern-minimalist?lang=${language}`}>
+                <Link href={`/templates/modern-minimalist?lang=${language}`}>
                   <motion.div variants={scaleOnHover}>
                     <Card className="group cursor-pointer transition-all duration-300 hover:shadow-xl border-amber-100 overflow-hidden">
                       <CardContent className="p-0">
@@ -588,7 +588,7 @@ export default function LandingPage() {
 
               {/* Template 3 - Rustic Romance */}
               <motion.div variants={fadeInUp}>
-                <Link href={`/template/rustic-romance?lang=${language}`}>
+                <Link href={`/templates/rustic-romance?lang=${language}`}>
                   <motion.div variants={scaleOnHover}>
                     <Card className="group cursor-pointer transition-all duration-300 hover:shadow-xl border-orange-100 overflow-hidden">
                       <CardContent className="p-0">
