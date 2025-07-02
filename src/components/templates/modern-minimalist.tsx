@@ -14,6 +14,7 @@ import {
   Globe,
 } from "lucide-react";
 import Link from "next/link";
+import { formatDateToGreek, formatTimeToGreek } from "@/lib/utils";
 
 const translations = {
   en: {
@@ -65,8 +66,25 @@ const translations = {
   },
 };
 
-export function ModernMinimalistTemplate() {
-  const [language, setLanguage] = useState<"en" | "gr">("en");
+interface Props {
+  id?: string;
+  name1: string;
+  name2: string;
+  email: string;
+  phone: string;
+  date: Date | string;
+  social_media: string;
+  description: string;
+  reception_time: string;
+  ceremony_time: string;
+  venue_name: string;
+  venue_address: string;
+  venue_coordinates: string;
+  template: string;
+}
+
+export function ModernMinimalistTemplate({ data }: { data: Props }) {
+  const [language, setLanguage] = useState<"en" | "gr">("gr");
   const searchParams = useSearchParams();
   const t = translations[language];
 
@@ -115,33 +133,39 @@ export function ModernMinimalistTemplate() {
         {/* Hero Section */}
         <div className="text-center mb-20">
           <h1 className="text-6xl font-light text-gray-800 mb-8 tracking-wide">
-            {language === "en" ? "Alex & Jordan" : "Άλεξ & Ιορδάνης"}
+            {/* {language === "en" ? "Alex & Jordan" : "Άλεξ & Ιορδάνης"} */}
+            {`${data.name1.split(" ")[0]} & ${data.name2.split(" ")[0]}`}
           </h1>
           <div className="w-24 h-px bg-amber-400 mx-auto mb-8"></div>
           <p className="text-xl text-gray-600 mb-12 font-light">
-            We&apos;re getting married and we&apos;d love for you to join us
+            Αγαπητοί μου φίλοι, παντρευόμαστε και θα χαιρόμασταν να έρθετε μαζί
+            μας
+            {/* We&apos;re getting married and we&apos;d love for you to join us */}
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-2xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
             <div className="text-center">
               <Calendar className="h-8 w-8 text-amber-500 mx-auto mb-3" />
               <p className="text-gray-800 font-medium">
-                {language === "en" ? "October 14" : "14 Οκτωβρίου"}
+                {/* {language === "en" ? "October 14" : "14 Οκτωβρίου"} */}
+                {formatDateToGreek(data.date)}
               </p>
               <p className="text-gray-600 text-sm">2024</p>
             </div>
             <div className="text-center">
               <Clock className="h-8 w-8 text-amber-500 mx-auto mb-3" />
-              <p className="text-gray-800 font-medium">5:00 PM</p>
+              <p className="text-gray-800 font-medium">
+                {formatTimeToGreek(data.ceremony_time)}
+              </p>
               <p className="text-gray-600 text-sm">{t.ceremony}</p>
             </div>
-            <div className="text-center">
+            {/* <div className="text-center">
               <MapPin className="h-8 w-8 text-amber-500 mx-auto mb-3" />
               <p className="text-gray-800 font-medium">Brooklyn</p>
               <p className="text-gray-600 text-sm">
                 {language === "en" ? "New York" : "Νέα Υόρκη"}
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -153,16 +177,17 @@ export function ModernMinimalistTemplate() {
                 {t.ourStory}
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>{t.storyP1}</p>
-                <p>{t.storyP2}</p>
-                <p>{t.storyP3}</p>
+                <p>{data.description}</p>
+                {/* <p>{t.storyP2}</p> */}
+                {/* <p>{t.storyP3}</p> */}
               </div>
             </div>
             <div className="aspect-square bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg flex items-center justify-center">
               <div className="text-center text-gray-600">
                 <Heart className="h-16 w-16 mx-auto mb-4 text-amber-500" />
                 <p className="text-lg font-light">
-                  {language === "en" ? "Alex & Jordan" : "Άλεξ & Ιορδάνης"}
+                  {/* {language === "en" ? "Alex & Jordan" : "Άλεξ & Ιορδάνης"} */}
+                  {`${data.name1.split(" ")[0]} & ${data.name2.split(" ")[0]}`}
                 </p>
                 <p className="text-sm">{t.togetherSince}</p>
               </div>
@@ -185,21 +210,26 @@ export function ModernMinimalistTemplate() {
                   </h3>
                   <div className="space-y-3 text-gray-600">
                     <div>
-                      <p className="font-medium">Brooklyn Botanic Garden</p>
+                      <p className="font-medium">{data.venue_name}</p>
                       <p className="text-sm">
-                        990 Washington Ave,{" "}
+                        {/* 990 Washington Ave,{" "}
                         {language === "en"
                           ? "Brooklyn, NY 11225"
-                          : "Μπρούκλιν, Νέα Υόρκη 11225"}
+                          : "Μπρούκλιν, Νέα Υόρκη 11225"} */}
+                        {data.venue_address}
                       </p>
                     </div>
                     <div>
                       <p className="font-medium">
-                        {language === "en"
+                        {/* {language === "en"
                           ? "October 14, 2024"
-                          : "14 Οκτωβρίου, 2024"}
+                          : "14 Οκτωβρίου, 2024"} */}
+                        {formatDateToGreek(data.ceremony_time)}
                       </p>
-                      <p className="text-sm">5:00 PM - 6:00 PM</p>
+                      <p className="text-sm">
+                        {formatTimeToGreek(data.ceremony_time)}
+                      </p>
+                      {/* <p className="text-sm">5:00 PM - 6:00 PM</p> */}
                     </div>
                   </div>
                 </div>
@@ -215,21 +245,27 @@ export function ModernMinimalistTemplate() {
                   </h3>
                   <div className="space-y-3 text-gray-600">
                     <div>
-                      <p className="font-medium">The Green Building</p>
+                      <p className="font-medium">{data.venue_name}</p>
+                      {/* <p className="font-medium">The Green Building</p> */}
                       <p className="text-sm">
-                        452 Union St,{" "}
+                        {data.venue_address}
+                        {/* 452 Union St,{" "}
                         {language === "en"
                           ? "Brooklyn, NY 11231"
-                          : "Μπρούκλιν, Νέα Υόρκη 11231"}
+                          : "Μπρούκλιν, Νέα Υόρκη 11231"} */}
                       </p>
                     </div>
                     <div>
                       <p className="font-medium">
-                        {language === "en"
+                        {/* {language === "en"
                           ? "October 14, 2024"
-                          : "14 Οκτωβρίου, 2024"}
+                          : "14 Οκτωβρίου, 2024"} */}
+                        {formatDateToGreek(data.reception_time)}
                       </p>
-                      <p className="text-sm">7:00 PM - 12:00 AM</p>
+                      <p className="text-sm">
+                        {formatTimeToGreek(data.reception_time)}
+                      </p>
+                      {/* <p className="text-sm">7:00 PM - 12:00 AM</p> */}
                     </div>
                   </div>
                 </div>
@@ -245,7 +281,20 @@ export function ModernMinimalistTemplate() {
               <h2 className="text-3xl font-light text-gray-800 text-center mb-8">
                 {t.gettingThere}
               </h2>
-              <div className="grid md:grid-cols-2 gap-8">
+              <h2 className="text-3xl font-light text-gray-800 text-center mb-8">
+                {data.venue_coordinates}
+              </h2>
+              <h2 className="text-3xl font-light text-gray-800 text-center mb-8">
+                Social: {data.social_media}
+              </h2>
+              <h2 className="text-3xl font-light text-gray-800 text-center mb-8">
+                email: {data.email}
+              </h2>
+              <h2 className="text-3xl font-light text-gray-800 text-center mb-8">
+                phone: {data.phone}
+              </h2>
+
+              {/* <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="text-lg font-medium text-gray-800 mb-4">
                     {t.transportation}
@@ -283,13 +332,13 @@ export function ModernMinimalistTemplate() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         </section>
 
         {/* RSVP */}
-        <section className="text-center mb-20">
+        {/* <section className="text-center mb-20">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl font-light text-gray-800 mb-6">
               {t.joinUs}
@@ -302,10 +351,10 @@ export function ModernMinimalistTemplate() {
               {t.rsvp}
             </Button>
           </div>
-        </section>
+        </section> */}
 
         {/* Template Info */}
-        <div className="text-center py-8 border-t border-gray-100">
+        {/* <div className="text-center py-8 border-t border-gray-100">
           <p className="text-gray-500 text-sm mb-4">{t.templatePreview}</p>
           <Button
             asChild
@@ -313,7 +362,7 @@ export function ModernMinimalistTemplate() {
           >
             <Link href="/">{t.createYourOwn}</Link>
           </Button>
-        </div>
+        </div> */}
       </main>
     </div>
   );

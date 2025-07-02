@@ -18,6 +18,8 @@ services:
       - postgres_data:/var/lib/postgres/data
     networks:
       - internal
+    ports:
+      - 5432:5432
 
 networks:
   internal:

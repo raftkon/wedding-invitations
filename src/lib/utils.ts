@@ -26,3 +26,13 @@ export function formatTimeToGreek(timestamp: string) {
     timeZone: "Europe/Athens",
   }).format(date);
 }
+
+export function formatDateToGreek(timestamp: string | Date) {
+  const date = new Date(timestamp)
+  return new Intl.DateTimeFormat("el-GR", {
+    weekday: "short", // e.g. Τρί
+    day: "2-digit", // e.g. 12
+    month: "long", // e.g. Μαΐου
+    year: "numeric", // e.g. 2020
+  }).format(date);
+}
