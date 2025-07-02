@@ -1,0 +1,25 @@
+services:
+  app:
+    image: raftkon/wedding-invitations:0.0.1
+    container_name: wedding-invitations-app
+    networks:
+      - internal
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:16
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgres/data
+    networks:
+      - internal
+
+networks:
+  internal:
+volumes:
+  postgres_data:
