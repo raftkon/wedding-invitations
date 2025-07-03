@@ -1,9 +1,6 @@
 import { db } from "@/lib/db";
 import { ModernMinimalistTemplate } from "@/components/templates/modern-minimalist";
 
-const templateMap = {
-  "modern-minimalist": ModernMinimalistTemplate,
-};
 interface Props {
   params: {
     id: string;

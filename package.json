@@ -5,8 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "node .next/standalone/server.js",
+    "lint": "next lint",
+    "postinstall": "prisma generate",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:init": "npm run db:migrate:deploy && npm run db:generate",
+    "db:deploy": "npx prisma migrate deploy && npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.11.0",

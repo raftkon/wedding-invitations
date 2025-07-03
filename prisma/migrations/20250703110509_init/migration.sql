@@ -13,6 +13,7 @@ CREATE TABLE "Invitation" (
     "venue_name" TEXT NOT NULL,
     "venue_address" TEXT NOT NULL,
     "venue_coordinates" TEXT NOT NULL,
+    "template" TEXT NOT NULL DEFAULT 'modern-minimalist',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Invitation_pkey" PRIMARY KEY ("id")
