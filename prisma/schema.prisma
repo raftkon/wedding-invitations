@@ -13,20 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Invitation {
-  id                String   @id @default(uuid())
-  name1             String
-  name2             String
-  date              DateTime
+model Wedding {
+  id                String    @id @default(cuid())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  firstPartnerName  String
+  secondPartnerName String
   email             String
   phone             String
-  social_media      String
-  description       String
-  reception_time    String
-  ceremony_time     String
-  venue_name        String
-  venue_address     String
-  venue_coordinates String
-  template          String   @default("modern-minimalist")
-  createdAt         DateTime @default(now())
+  weddingDateTime   DateTime // ← single field, stored in UTC
+  ceremonyDateTime  DateTime?
+  ceremonyDuration  Int? // in minutes
+  receptionDateTime DateTime?
+  receptionDuration Int?
+  venueName         String?
+  venueAddress      String?
+  venueCoords       Json? // { lat: number, lng: number }
+  venueDetails      String?
+  description       String?
 }
