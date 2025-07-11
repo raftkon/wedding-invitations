@@ -15,41 +15,14 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { formatTimestampToGreek, formatTimeToGreek } from "@/lib/utils";
+import { formatDateToGreek, formatTimeToGreek } from "@/lib/utils";
 import translations from "@/constants/translations.json";
+import { z } from "zod";
+import { WeddingSchema } from "@/schemas";
 
-interface ClassicEleganceTemplateProps {
-  firstPartner: string;
-  secondPartner: string;
-  email: string;
-  phone: string;
-  date: string;
-  invites: string;
-  ceremony: {
-    name: string;
-    date: string;
-  };
-  reception: {
-    name: string;
-    date: string;
-    dinner: string;
-  };
-  location: {
-    name: string;
-    country: string;
-    city: string;
-    description: string;
-    address: string;
-    coordinates: string;
-    parking: string;
-    photoUrl: string;
-  };
-}
-export function ClassicEleganceTemplate({
-  data,
-}: {
-  data: ClassicEleganceTemplateProps;
-}) {
+type Wedding = z.infer<typeof WeddingSchema>;
+
+export function ClassicEleganceTemplate({ data }: { data: Wedding }) {
   const [language, setLanguage] = useState<"en" | "gr">("gr");
   const searchParams = useSearchParams();
   const t = translations["ClassicEleganceTemplate"][language];
@@ -67,7 +40,6 @@ export function ClassicEleganceTemplate({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-rose-50 to-rose-100">
-      {/* Header */}
       <header className="px-4 lg:px-6 h-16 flex items-center border-b border-rose-200 bg-white/80 backdrop-blur-sm">
         <Link href="/" className="flex items-center justify-center">
           <Heart className="h-6 w-6 text-rose-400 mr-2" />
@@ -99,13 +71,12 @@ export function ClassicEleganceTemplate({
       </header>
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
-        {/* Hero Section */}
         <div className="text-center mb-12 py-16 bg-white rounded-2xl shadow-lg border border-rose-100">
           <div className="w-24 h-24 bg-rose-200 rounded-full flex items-center justify-center mx-auto mb-6">
             <Heart className="h-12 w-12 text-rose-600" />
           </div>
           <h1 className="text-5xl font-serif text-gray-800 mb-4">
-            {`${data.firstPartner} & ${data.secondPartner}`}
+            {`${data.firstPartnerName} & ${data.secondPartnerName}`}
           </h1>
           <div className="w-32 h-px bg-rose-300 mx-auto mb-6"></div>
           <p className="text-xl text-gray-600 mb-8">{t.togetherWith}</p>
@@ -113,64 +84,62 @@ export function ClassicEleganceTemplate({
             <div className="flex items-center justify-center gap-2">
               <Calendar className="h-5 w-5 text-rose-500" />
               <span className="text-lg">
-                {formatTimestampToGreek(data.date)}
+                {formatDateToGreek(data.weddingDateTime)}
               </span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <MapPin className="h-5 w-5 text-rose-500" />
-              <span className="text-lg">{`${data.location.name}, ${data.location.city}, ${data.location.country}`}</span>
+              <span className="text-lg">{data.venueName}</span>
             </div>
           </div>
         </div>
 
-        {/* Wedding Details */}
         <div className="grid md:grid-cols-2 gap-8 mb-8">
-          <Card className="border-rose-100">
-            <CardContent className="p-6">
-              <div className="text-center">
-                <Clock className="h-12 w-12 text-rose-500 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  {t.ceremony}
-                </h3>
-                <div className="space-y-2 text-gray-600">
-                  <p>
-                    <strong>{t.time}:</strong>{" "}
-                    {formatTimeToGreek(data.ceremony.date)}
-                  </p>
-                  <p>
-                    <strong>{t.location}:</strong> {data.ceremony.name}
-                  </p>
+          {data.ceremonyDateTime && (
+            <Card className="border-rose-100">
+              <CardContent className="p-6">
+                <div className="text-center">
+                  <Clock className="h-12 w-12 text-rose-500 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    {t.ceremony}
+                  </h3>
+                  <div className="space-y-2 text-gray-600">
+                    <p>
+                      <strong>{t.time}:</strong> data.ceremonyDateTime
+                      {/* {formatTimeToGreek(data.ceremonyDateTime)} */}
+                    </p>
+                    <p>
+                      <strong>{t.location}:</strong> {data.venueName}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          )}
 
-          <Card className="border-rose-100">
-            <CardContent className="p-6">
-              <div className="text-center">
-                <Music className="h-12 w-12 text-rose-500 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  {t.reception}
-                </h3>
-                <div className="space-y-2 text-gray-600">
-                  <p>
-                    <strong>{t.time}:</strong>{" "}
-                    {formatTimeToGreek(data.reception.date)}
-                  </p>
-                  <p>
-                    <strong>{t.location}:</strong> {data.reception.name}
-                  </p>
-                  <p>
-                    <strong>{t.dinner}:</strong>{" "}
-                    {formatTimeToGreek(data.reception.dinner)}
-                  </p>
+          {data.receptionDateTime && (
+            <Card className="border-rose-100">
+              <CardContent className="p-6">
+                <div className="text-center">
+                  <Music className="h-12 w-12 text-rose-500 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    {t.reception}
+                  </h3>
+                  <div className="space-y-2 text-gray-600">
+                    <p>
+                      <strong>{t.time}:</strong> data.receptionDateTime
+                      {/* {formatTimeToGreek(data.receptionDateTime)} */}
+                    </p>
+                    <p>
+                      <strong>{t.location}:</strong> {data.venueName}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
-        {/* Location Details */}
         <Card className="mb-8 border-rose-100">
           <CardContent className="p-8">
             <h2 className="text-3xl font-serif text-center text-gray-800 mb-6">
@@ -179,31 +148,27 @@ export function ClassicEleganceTemplate({
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  {data.location.name}
+                  {data.venueName}
                 </h3>
                 <p className="text-gray-600 mb-4 leading-relaxed">
-                  {data.location.description}
+                  {data.venueDetails}
                 </p>
                 <div className="space-y-2 text-sm text-gray-600">
                   <p>
-                    <strong>{t.address}:</strong> {data.location.address}
-                  </p>
-                  <p>
-                    <strong>{t.parking}:</strong> {data.location.parking}
+                    <strong>{t.address}:</strong> {data.venueAddress}
                   </p>
                 </div>
               </div>
               <div className="aspect-video bg-gradient-to-br from-rose-100 to-amber-100 rounded-lg flex items-center justify-center">
                 <div className="text-center text-gray-600">
                   <Camera className="h-12 w-12 mx-auto mb-2" />
-                  <p>{data.location.name}</p>
+                  <p>{data.venueName}</p>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Template Info */}
         <div className="text-center py-8 border-t border-rose-200">
           <p className="text-gray-500 text-sm mb-4">{t.templatePreview}</p>
           <Button asChild className="bg-rose-500 hover:bg-rose-600 text-white">
