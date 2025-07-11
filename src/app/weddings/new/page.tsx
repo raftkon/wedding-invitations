@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { WeddingForm } from "@/components/wedding-form";
 import { Heart, Menu, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -86,7 +87,7 @@ export default function NewWeddingPage() {
         </div>
 
         {/* form */}
-        <form action="" className="space-y-6 md:space-y-8">
+        {/* <form action="" className="space-y-6 md:space-y-8">
           <Card className="border-rose-100">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-rose-600 text-lg md:text-xl">
@@ -267,7 +268,9 @@ export default function NewWeddingPage() {
               Πατα το!
             </Button>
           </div>
-        </form>
+        </form> */}
+
+        <WeddingForm />
       </main>
     </div>
   );

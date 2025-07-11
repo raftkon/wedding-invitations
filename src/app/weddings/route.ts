@@ -1,12 +1,13 @@
 import { convertLocalStringToUTC } from "@/lib/date";
 import { db } from "@/lib/db";
-import { weddingSchema } from "@/schemas";
+import { WeddingSchema } from "@/schemas";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   const values = await req.json();
-  const validatedValues = weddingSchema.safeParse(values);
+  console.log({values})
+  const validatedValues = WeddingSchema.safeParse(values);
   if (!validatedValues.success) {
     return NextResponse.json({ error: "Invalid fields" });
   }
@@ -27,3 +28,7 @@ export const POST = async (req: NextRequest) => {
   revalidatePath(`/templates/t/${wedding.id}`);
   return NextResponse.json({ success: true, data: wedding });
 };
+
+export const GET = async () =>{
+  return NextResponse.json("HELLO")
+}
