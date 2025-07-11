@@ -13,6 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Template {
+  classic_elegance
+  modern_minimalist
+  rustic_romance
+}
+
 model Wedding {
   id                String    @id @default(cuid())
   createdAt         DateTime  @default(now())
@@ -31,4 +37,5 @@ model Wedding {
   venueCoords       Json? // { lat: number, lng: number }
   venueDetails      String?
   description       String?
+  template          Template  @default(classic_elegance)
 }
