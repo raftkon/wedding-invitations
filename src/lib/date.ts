@@ -1,12 +1,12 @@
 // lib/date.ts
-import { formatInTimeZone, toZonedTime, fromZonedTime } from 'date-fns-tz';
+import { formatInTimeZone, toZonedTime, fromZonedTime } from "date-fns-tz";
 
-const GREECE_TIMEZONE = 'Europe/Athens';
+const GREECE_TIMEZONE = "Europe/Athens";
 
 /**
  * Converts a datetime-local string (e.g. "2025-09-21T14:00") — interpreted as Greece time — into a UTC Date
  */
-export function convertLocalStringToUTC(localDateTime: string): Date {
+export function convertLocalStringToUTC(localDateTime: string | Date): Date {
   return fromZonedTime(localDateTime, GREECE_TIMEZONE);
 }
 
@@ -22,7 +22,7 @@ export function convertUTCToGreece(utcDate: Date): Date {
  */
 export function formatDateToGreekTimeString(
   utcDate: Date,
-  pattern = 'dd/MM/yyyy HH:mm'
+  pattern = "dd/MM/yyyy HH:mm"
 ): string {
   return formatInTimeZone(utcDate, GREECE_TIMEZONE, pattern);
 }
@@ -37,4 +37,3 @@ export function isValidDate(value: unknown): boolean {
   }
   return false;
 }
-

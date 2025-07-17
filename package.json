@@ -9,7 +9,7 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "db:migrate:deploy": "prisma migrate deploy",
-    "db:init": "npm run db:migrate:deploy && npm run db:generate",
+    "db:dev": "npx prisma migrate dev && npx prisma generate",
     "db:deploy": "npx prisma migrate deploy && npx prisma generate"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "react-day-picker": "^9.8.0",
     "react-dom": "^18",
     "react-hook-form": "^7.60.0",
+    "react-icons": "^5.5.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.25.76"

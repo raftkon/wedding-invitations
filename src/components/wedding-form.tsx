@@ -11,7 +11,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { WeddingSchema } from "@/schemas";
 import { useToast } from "@/hooks/use-toast";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
 import { useRouter } from "next/navigation";
 import { Calendar as CalendarIcon, Gem, Users } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -19,6 +26,8 @@ import { Calendar } from "./ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { TimePicker } from "./time-picker";
+import { FormError } from "./form-error";
+import { FormSuccess } from "./form-success";
 
 export const WeddingForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -49,10 +58,10 @@ export const WeddingForm = () => {
   });
 
   const handleSubmit = async (values: z.infer<typeof WeddingSchema>) => {
+    console.log("HELLO");
     setLoading(true);
     try {
       const response = await fetch("/api/weddings", {
-        cache: "no-cache",
         method: "POST",
         body: JSON.stringify(values),
         headers: { "Content-Type": "application/json" },
@@ -62,12 +71,14 @@ export const WeddingForm = () => {
       if (response.ok) {
         router.push(`/weddings/w/${result.data.id}`);
       } else {
+        setError(result.error);
         toast({
           title: result.error || "Something went wrong",
           variant: "destructive",
         });
       }
     } catch (error) {
+      setError("Something went wrong");
       toast({
         title: "Something went wrong",
         variant: "destructive",
@@ -108,6 +119,7 @@ export const WeddingForm = () => {
                           className="border-rose-200 focus:border-rose-400"
                         />
                       </FormControl>
+                      <FormMessage />
                     </div>
                   </FormItem>
                 )}
@@ -128,6 +140,7 @@ export const WeddingForm = () => {
                           className="border-rose-200 focus:border-rose-400"
                         />
                       </FormControl>
+                      <FormMessage />
                     </div>
                   </FormItem>
                 )}
@@ -150,6 +163,7 @@ export const WeddingForm = () => {
                           className="border-rose-200 focus:border-rose-400"
                         />
                       </FormControl>
+                      <FormMessage />
                     </div>
                   </FormItem>
                 )}
@@ -171,6 +185,7 @@ export const WeddingForm = () => {
                           className="border-rose-200 focus:border-rose-400"
                         />
                       </FormControl>
+                      <FormMessage />
                     </div>
                   </FormItem>
                 )}
@@ -221,17 +236,19 @@ export const WeddingForm = () => {
                 </FormItem>
               )}
             />
+            <FormError message={error} />
+            <FormSuccess message={success} />
+            <div className="text-center pt-6 md:pt-8">
+              <Button
+                type="submit"
+                size={"lg"}
+                className="bg-rose-500 hover:bg-rose-600 text-white px-8 md:px-12 py-3 text-base md:text-lg w-full sm:w-auto"
+              >
+                Πατα το!
+              </Button>
+            </div>
           </CardContent>
         </Card>
-        <div className="text-center pt-6 md:pt-8">
-          <Button
-            type="submit"
-            size={"lg"}
-            className="bg-rose-500 hover:bg-rose-600 text-white px-8 md:px-12 py-3 text-base md:text-lg w-full sm:w-auto"
-          >
-            Πατα το!
-          </Button>
-        </div>
       </form>
     </Form>
   );
